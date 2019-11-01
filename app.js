@@ -14,6 +14,65 @@ const showButton = str => {
         buttonArea.append(newBtn);
         buttonsShown.push(str);
     }
+
+}
+// for loop to add initial topics to page
+topics.forEach(element => {
+    showButton(element);
+});
+// add listener to topic
+// button listener
+$(".topic-button").on('click', function () {
+    const topic = $(this).attr('data-topic');
+    console.log(topic)
+    const gifArr = []
+    $.ajax(
+        {
+            url: createQueryUrl(topic),
+            method: "GET"
+        }
+    ).then(function (response) {
+        const dataArr = response.data
+        dataArr.forEach(element => {
+            gifArr.push(new gifObject(element.images.fixed_height_still.url, element.images.fixed_height.url, element.rating))
+        });
+
+        gifArr.forEach(element => {
+            console.log(element)
+            showGifs(element)
+        })
+        // gif listener
+        $(".gif").on('click', function () {
+            console.log("you've clicked", this)
+            const still = $(this).attr('data-still');
+            const animated = $(this).attr('data-animated');
+            const state = $(this).attr('data-state')
+            if (state === 'still') {
+                $(this).attr('data-state', 'animated');
+                $(this).attr('src', animated);
+            }
+            if (state === 'animated') {
+                $(this).attr('data-state', 'still');
+                $(this).attr('src', still);
+            }
+        })
+    })
+
+
+})
+
+// 
+const formInput = $("#input-text")
+// 
+const submitBtn = $("#submit-btn")
+submitBtn.on('click', function (event) {
+    event.preventDefault();
+    topics.push(formInput.val());
+    buttonsShown = [];
+    buttonArea.empty();
+    topics.forEach(element => {
+        showButton(element);
+    });
     // button listener
     $(".topic-button").on('click', function () {
         const topic = $(this).attr('data-topic');
@@ -53,24 +112,6 @@ const showButton = str => {
 
 
     })
-}
-// for loop to add initial topics to page
-topics.forEach(element => {
-    showButton(element);
-});
-
-// 
-const formInput = $("#input-text")
-// 
-const submitBtn = $("#submit-btn")
-submitBtn.on('click', function (event) {
-    event.preventDefault();
-    topics.push(formInput.val());
-    buttonsShown = [];
-    buttonArea.empty();
-    topics.forEach(element => {
-        showButton(element);
-    });
 })
 
 
@@ -84,7 +125,7 @@ submitBtn.on('click', function (event) {
 //  apiKey
 const apiKey = 'XeGkmEndo2mjsZUb5H7dgYlvQWsDs6f6'
 // function that make the queryURL
-const createQueryUrl = topic => "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=" + apiKey;
+const createQueryUrl = topic => "https://api.giphy.com/v1/gifs/search?limit=10&q=" + topic + "&api_key=" + apiKey;
 //  test createQueryUrl
 // console.log(createQueryUrl("dog"), 'testing createQueryUrl')
 
@@ -106,11 +147,12 @@ const showGifs = gifObj => {
     gifImg.attr('data-animated', gifObj.animatedImg);
     gifImg.attr('src', gifObj.stillImg);
     gifImg.attr('data-state', 'still');
-    gifImg.addClass('gif');
+    gifImg.addClass('gif rounded');
     gifDiv.append(gifImg);
+    gifDiv.addClass('m-2');
     gifRating.text('Rated: ' + gifObj.imgRating);
     gifDiv.append(gifRating);
-    gifArea.append(gifDiv);
+    gifArea.prepend(gifDiv);
 }
 
 //  grab the data list via ajax
