@@ -11,21 +11,27 @@
 </head>
 
 <body>
+    <div class="jumbotron m-3">
+        <h1 class="display-4">Giphy API!</h1>
+        <p class="lead">Click a button to show gifs related to that topic!</p>
+        <hr class="my-4">
+        <form>
+            <div class="form-group">
+                <label for="gif-search">Add a KPOP group/artist!</label>
+                <input type="text" class="form-control" id="input-text">
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="submit-btn">Submit</button>
+        </form>
+    </div>
     <div class="container">
         <div class="row" id="button-area"></div>
 
         <div class="row">
-            <div class="col-md-7 d-flex flex-wrap" id="gif-area"></div>
-            <div class="col-md-5" id="input-area">
-                <form>
-                    <div class="form-group">
-                        <label for="gif-search">Add a KPOP group/artist!</label>
-                        <input type="text" class="form-control" id="input-text">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary" id="submit-btn">Submit</button>
-                </form>
-            </div>
+            <div class="col-md-12 d-flex flex-wrap" id="gif-area"></div>
+            <!-- <div class="col-md-5" id="input-area">
+                
+            </div> -->
         </div>
 
     </div>
