@@ -123,32 +123,15 @@ const showGifs = gifObj => {
     const w = gifObj.width + 20;
     const h = gifObj.height + 20;
     gifDiv.attr('style', 'width:' + w + 'px;height:' + h + 'px;');
+
     gifImg.attr('data-still', gifObj.stillImg);
     gifImg.attr('data-animated', gifObj.animatedImg);
     gifImg.attr('src', gifObj.stillImg);
     gifImg.attr('data-state', 'still');
-    gifImg.addClass('gif rounded');
+    gifImg.addClass('gif rounded img-fluid');
     gifDiv.append(gifImg);
     gifDiv.addClass('p-2');
     gifRating.text('Rated: ' + gifObj.imgRating);
     gifDiv.append(gifRating);
     gifArea.prepend(gifDiv);
 }
-
-//  grab the data list via ajax
-
-// function getGifs(topic) {
-//     console.log('getGifs topic: ', topic)
-//     $.ajax({
-//         url: createQueryUrl(topic),
-//         method: "GET"
-//     }).then(response => {
-//         const gifObjArray = []
-//         const dataArr = response.data
-//         console.log
-//         dataArr.forEach(element => {
-//             gifObjArray.push(new gifObject(element.images.fixed_height_still.url, element.images.fixed_height.url, element.rating, element.images.fixed_height.width, element.images.fixed_height.height))
-//         });
-//         return gifObjArray;
-//     })
-// }
