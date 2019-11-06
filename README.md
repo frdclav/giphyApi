@@ -1,5 +1,5 @@
 # giphyApi
-Check it out [here](frdc.info/giphyApi)
+Check it out [here](http://frdc.info/giphyApi)
 
 Using javascript and ajax, we are able to hit the giphyApi and have gifs returned for the chosen topic/search term
 
